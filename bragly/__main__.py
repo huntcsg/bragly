@@ -13,4 +13,5 @@ def main(args=None):
     result = func(**args)
     print(result)
     return 0
+
 main()
