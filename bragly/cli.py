@@ -30,7 +30,7 @@ def parse_args(args):
     # Other read options
     read_parser.add_argument(
             '-f', 
-            '--format', 
+            '--form', 
             type=str, 
             default='json', 
             help='The format to display the results in. One of json, json-pretty, log. Default: %(default)s'
@@ -55,7 +55,7 @@ def parse_args(args):
     search_parser.add_argument('-x', '--text', nargs='*', type=str, help='Keywords you want to search for')
     search_parser.add_argument(
         '-f', 
-        '--format', 
+        '--form', 
         type=str, 
         default='json', 
         help='The format to display the results in. One of json, json-pretty, log. Default: %(default)s'
