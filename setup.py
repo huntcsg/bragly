@@ -27,6 +27,5 @@ setup(
         'nose',
         'coverage',
     ],
-    test_suite='nose.collector'
-        
+    test_suite='nose.collector',
 )
