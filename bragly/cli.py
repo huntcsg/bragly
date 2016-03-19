@@ -53,6 +53,14 @@ def parse_args(args):
     # Other search options
     search_parser.add_argument('-t', '--tags', nargs='*', type=str, help='Tags you want to search for')
     search_parser.add_argument('-x', '--text', nargs='*', type=str, help='Keywords you want to search for')
+    search_parser.add_argument(
+        '-f', 
+        '--format', 
+        type=str, 
+        default='json', 
+        help='The format to display the results in. One of json, json-pretty, log. Default: %(default)s'
+    )
+
     # Set the operation that will be called based on the command
     search_parser.set_defaults(func=search)
     
