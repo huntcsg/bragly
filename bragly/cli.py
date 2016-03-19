@@ -57,7 +57,7 @@ def parse_args(args):
     
     args = vars(parser.parse_args(args))
     if not args:
-        parser.print_usage()
+        parser.print_help()
         sys.exit()
     return args
 
