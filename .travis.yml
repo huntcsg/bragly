@@ -10,4 +10,5 @@ script:
   - python setup.py nosetests
 
 after_success:
+  - pip install python-coveralls
   - coveralls
