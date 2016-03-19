@@ -27,8 +27,16 @@ def parse_args(args):
     )
     read_parser_enddate_group.add_argument('-e', '--enddate', type=str, help='The end time for getting entries')
     # Other read options
-    read_parser.add_argument('-f', '--format', type=str, default='json', help='The format to display the results in. One of json, json-pretty, log. Default: %(default)s')
+    read_parser.add_argument(
+            '-f', 
+            '--format', 
+            type=str, 
+            default='json', 
+            help='The format to display the results in. One of json, json-pretty, log. Default: %(default)s'
+    )
+    # Set the operation that will be called based on the command
     read_parser.set_defaults(func=read)
+    
     # Search Command Sub parser
     search_parser = subparsers.add_parser('s', help='Search for a group of brag entries')
     search_parser.add_argument('-s', '--start', type=str, help="The start time for getting entries")
@@ -44,6 +52,7 @@ def parse_args(args):
     # Other search options
     search_parser.add_argument('-t', '--tags', nargs='*', type=str, help='Tags you want to search for')
     search_parser.add_argument('-x', '--text', nargs='*', type=str, help='Keywords you want to search for')
+    # Set the operation that will be called based on the command
     search_parser.set_defaults(func=search)
     
     args = vars(parser.parse_args(args))
