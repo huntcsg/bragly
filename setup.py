@@ -25,6 +25,7 @@ setup(
     ], 
     tests_require=[
         'nose',
+        'coverage',
     ],
     test_suite='nose.collector'
         
