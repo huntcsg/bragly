@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """A module that handles dispatching to the appropriate persistance module
     based on user configuration.
 
@@ -35,7 +36,9 @@ def write(message, mechanism=None):
 
 
 def read(start, end, form='log', mechanism=None):
-    """
+    """Given a start and end date, and an output format, gets the persistance
+        module from the configuration and passes the request to that module.
+        Yields the results back to the caller.
 
     Args:
         start (arrow.Arrow):
@@ -54,7 +57,8 @@ def read(start, end, form='log', mechanism=None):
 
 
 def search(start, end, form, tags, text, all_args, mechanism=None):
-    """Given search criteria, finds the matching messages.
+    """Given search criteria, finds the matching messages. Yields the results
+        back to the caller.
 
     Args:
         start (arrow.Arrow): The star tdate after which to find messages (inclusive)
