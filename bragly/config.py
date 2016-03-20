@@ -5,7 +5,7 @@ def get_config(mechanism=None):
 
     default_config = {
         'files': {
-            'file_path': os.path.expanduser('~/.brag/brag.dat'),
+            'file_dir': os.path.expanduser('~/.brag'),
             'form': 'log',
         },
     }
