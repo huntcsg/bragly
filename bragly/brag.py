@@ -25,11 +25,8 @@ def read(start, end=None, period=None, form='json'):
     elif end is None:
         _, end = start.span(period)
 
-    try:
-        result = persist.read(start, end, form)
-        return result
-    except Exception as e:
-        return "Failure in read: {}".format(sys.exc_info()[0])
+    result = persist.read(start, end, form)
+    return result
 
 def search(**kwargs):
     print("searched: ", kwargs)
