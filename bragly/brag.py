@@ -3,6 +3,12 @@ import bragly.persist as persist
 import json
 import sys
 
+__all__ [
+    'write',
+    'read',
+    'search',
+]
+
 def write(message=None, tags=None, timestamp=None):
     if message is None:
         message = ''
