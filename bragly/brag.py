@@ -3,7 +3,7 @@ import bragly.persist as persist
 import json
 import sys
 
-__all__ [
+__all__ = [
     'write',
     'read',
     'search',

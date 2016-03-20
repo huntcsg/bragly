@@ -40,7 +40,7 @@ def read(start, end, out_form, form, file_dir=None, file_path=None):
         raise NotImplementedError('json-pretty format is not yet supported')
     with open(file_path, 'rb') as f:
         for line in f:
-            line = line.decode('utf-8')
+            line = line.decode('utf-8').strip()
             parsed_line = parse_line(line, form=form)
             if parsed_line.timestamp >= start and parsed_line.timestamp <= end:
                 if out_form != form:
@@ -55,6 +55,7 @@ def parse_line(line, form):
         timestamp, tags, message = line_regex.findall(line)[0]
         timestamp = arrow.get(timestamp)
         tags = tags.split('|')
+        message = message.strip()
         if not tags:
             tags = []
         return ParsedLine(timestamp, tags, message)
