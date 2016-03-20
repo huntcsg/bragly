@@ -34,10 +34,27 @@ def write(message, file_path=None, file_dir=None, form='json'):
     Returns:
         str: On success returns the word "success"
     """
+    timestamp = message['timestamp'].isoformat()
+    tags = message['tags']
+    message = message['message']
+
     if form == 'json':
-        message_str = json.dumps(message)
+        message_str = "{}\n".format(json.dumps(
+            dict(
+                message=message,
+                tags=tags,
+                timestamp=timestamp
+            ),
+        ))
     elif form == 'json-pretty':
-        message_str = json.dumps(message, indent=2)
+        message_str = "{}\n".format(json.dumps(
+            dict(
+                message=message,
+                tags=tags,
+                timestamp=timestamp
+            ),
+            indent=2
+        ))
     elif form == 'log':
         tags = '|'.join(message['tags'])
         timestamp = message['timestamp'].isoformat()
@@ -140,7 +157,7 @@ def _parse_line(line, form):
     elif form == 'json':
         message_json = json.loads(line)
         return ParsedLine(
-            message_json['timestamp'],
+            arrow.get(message_json['timestamp']),
             message_json['tags'],
             message_json['message']
         )
