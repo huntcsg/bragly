@@ -34,6 +34,15 @@ def read(start, end=None, period=None, form='json'):
     result = persist.read(start, end, form)
     return result
 
-def search(**kwargs):
-    print("searched: ", kwargs)
+def search(start, end=None, period=None, form='json', tags=None, text=None):
+    if end is None and period is None:
+        end = arrow.now()
+    elif end is None:
+        _, end = start.span(period)
+    if tags is None:
+        tags = []
+    if text is None:
+        text = []
 
+    result = persis.search(start, end, form, tags, text)
+    return result
