@@ -21,6 +21,9 @@ optional arguments:
   -h, --help  show this help message and exit
 ```
 ####Write
+e.g.
+ - `brag w Went to seminar, taught mini class to co-workers --tags help teach`
+ - `brag w Found bug in caching code, let relevant team know --tags network help debug`
 ```
 $ brag w --help
 usage: brag w [-h] [-t [TAGS [TAGS ...]]] [-d TIMESTAMP] message [message ...]
@@ -72,7 +75,6 @@ optional arguments:
                         Keywords you want to search for
   -f FORM, --form FORM  The format to display the results in. One of json,
                         json-pretty, log. Default: json
-```
 ```
 
 
