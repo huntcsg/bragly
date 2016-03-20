@@ -1,9 +1,25 @@
+# -*- coding: utf-8 -*-
+"""Represents the needed functions and logic for a command line interface."""
+
 import argparse
 from bragly.brag import write, read, search
 import arrow
-import sys
 
 def parse_args(args):
+    """Parses arguments and dispatches the commands and argumnets to the
+        appropriate sub parser using argparse.ArgumentParser.parse_args.
+        Essentially, based on the commands given, returns a dictionary of
+        options. One of the keys is "func" which is a function object
+        from bragly.brag that maps to the given command.
+
+    Args:
+        args: The argments from sys.argv
+
+
+    Returns:
+        argpaser.ArgumentParser, dict: The parser object and a dictionary of
+            options.
+    """
 
     parser = argparse.ArgumentParser(prog='brag')
     subparsers = parser.add_subparsers(help='sub command help')
