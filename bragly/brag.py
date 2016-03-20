@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """A module to munge arguments comming from a front end and pass those requests
     to the persistence module.
 """
