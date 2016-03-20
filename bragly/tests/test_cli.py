@@ -17,7 +17,7 @@ def test_args():
         },
         {
             'args': 's --start=2015-01-01 --period=month --tags tag1 tag2 --text text1 text2',
-            'result_keys': ['period','tags','text','start','end', 'func', 'form']
+            'result_keys': ['period','tags','text','start','end', 'func', 'form', 'all']
         },
         {
             'args': 'r --start=2015-01-01 --period=month',
@@ -134,6 +134,39 @@ def test_serach_parsing():
                 'tags': ['tag1', 'tag2'], 
                 'text': ['text1', 'text2']}
         },
+        {
+            'args': 's --start=2015-01-01 --period year --tags tag1 tag2',
+            'result': {
+                'func': 'search',
+                'form': 'json',
+                'start': arrow.get('2015-01-01'),
+                'period': 'year',
+                'tags': ['tag1', 'tag2'],
+                'all' : False,
+            },
+        },
+        {
+            'args': 's --start=2015-01-01 --period year --tags tag1 tag2 --any',
+            'result': {
+                'func': 'search',
+                'form': 'json',
+                'start': arrow.get('2015-01-01'),
+                'period': 'year',
+                'tags': ['tag1', 'tag2'],
+                'all' : False,
+            },
+        },
+        {
+            'args': 's --start=2015-01-01 --period year --tags tag1 tag2 --all',
+            'result': {
+                'func': 'search',
+                'form': 'json',
+                'start': arrow.get('2015-01-01'),
+                'period': 'year',
+                'tags': ['tag1', 'tag2'],
+                'all' : True,
+            },
+        }
     ]
     for test_case in test_cases:
         yield check_search_parsing, test_case['args'], test_case['result']
