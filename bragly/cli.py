@@ -83,10 +83,11 @@ def parse_args(args):
     
     args = vars(parser.parse_args(args))
     # Do some additonal argument parsing if this is a search command
-    if args['func'].__name__ == 'search':
-        any_args = args.pop('any', True)
-        all_args = args.pop('all', False)
-        args['all_args'] = (not any_args) or all_args
+    if 'func' in args:
+        if args['func'].__name__ == 'search':
+            any_args = args.pop('any', True)
+            all_args = args.pop('all', False)
+            args['all_args'] = (not any_args) or all_args
 
     return parser, args
 
