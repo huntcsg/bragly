@@ -17,7 +17,7 @@ def parse_args(args):
 
     # Read command sub parser
     read_parser = subparsers.add_parser('r', help='Read a group of brag entries')
-    read_parser.add_argument('-s', '--start', type=arrow.get, help="The start time for getting entries")
+    read_parser.add_argument('-s', '--start', type=arrow.get, help="The start time for getting entries", required=True)
     # End date spec
     read_parser_enddate_group =  read_parser.add_mutually_exclusive_group()
     read_parser_enddate_group.add_argument(
@@ -40,7 +40,13 @@ def parse_args(args):
     
     # Search Command Sub parser
     search_parser = subparsers.add_parser('s', help='Search for a group of brag entries')
-    search_parser.add_argument('-s', '--start', type=arrow.get, help="The start time for getting entries")
+    search_parser.add_argument(
+        '-s',
+        '--start',
+        type=arrow.get,
+        help="The start time for getting entries",
+        required=True
+    )
     # End date spec
     search_parser_enddate_group = search_parser.add_mutually_exclusive_group()
     search_parser_enddate_group.add_argument(
@@ -60,10 +66,27 @@ def parse_args(args):
         default='json', 
         help='The format to display the results in. One of json, json-pretty, log. Default: %(default)s'
     )
+    any_all_group = search_parser.add_mutually_exclusive_group()
+    any_all_group.add_argument(
+        '--any',
+        action='store_true',
+        help='Indicates that a result should be returned if it has at least one match in either tags or text.',
+        default=True
+    )
+    any_all_group.add_argument(
+        '--all',
+        action='store_true',
+        help='Indicates that a result should be returned if it matches all tags and text criteria.')
 
     # Set the operation that will be called based on the command
     search_parser.set_defaults(func=search)
     
     args = vars(parser.parse_args(args))
+    # Do some additonal argument parsing if this is a search command
+    if args['func'].__name__ == 'search':
+        any_args = args.pop('any', True)
+        all_args = args.pop('all', False)
+        args['all_args'] = (not any_args) or all_args
+
     return parser, args
 

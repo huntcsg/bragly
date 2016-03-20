@@ -23,12 +23,12 @@ def write(message, file_path=None, file_dir=None, form='json'):
     
     return "success"
 
-def get_file_path(form=None, file_path=None, file_dir=None):
+def get_file_path(form, file_path=None, file_dir=None):
     if file_path is None and file_dir is None:
         raise RuntimeError('No file_path or file_dir indicated.')
 
     if file_path is None:
-        file_path = os.path.join(file_dir, 'brag-{form}.dat')
+        file_path = os.path.join(file_dir, 'brag-{form}.dat'.format(form=form))
 
     return file_path
 
@@ -54,10 +54,11 @@ def parse_line(line, form):
         line_regex = re.compile(r'\[(.*)\]\[(.*)] (.*)')
         timestamp, tags, message = line_regex.findall(line)[0]
         timestamp = arrow.get(timestamp)
-        tags = tags.split('|')
-        message = message.strip()
         if not tags:
             tags = []
+        else:
+            tags = tags.split('|')
+        message = message.strip()
         return ParsedLine(timestamp, tags, message)
 
     elif form == 'json':
@@ -68,19 +69,42 @@ def parse_line(line, form):
         raise RuntimeError('No!')
 
 def coerce_line(parsed_line, out_form):
+    if out_form == 'parsed_line':
+        return parsed_line
     timestamp = parsed_line.timestamp.isoformat()
     if out_form == 'log':
         tags = '|'.join(parsed_line.tags)
-        return MESSAGE_STR_TEMPLATE.format(timestamp=timestamp, tags=tags, message=parsed_line.message)
+        return MESSAGE_STR_TEMPLATE.format(timestamp=timestamp, tags=tags, message=parsed_line.message).strip()
 
     elif out_form == 'json':
         # Translate from a named tuple to a dict, and then dump as a json string
-        return json.dumps({'timestamp': timestamp, 'tags': parsed_line.tags, 'message': parsed_line.message})
+        return json.dumps({'timestamp': timestamp, 'tags': parsed_line.tags, 'message': parsed_line.message}).strip()
 
     elif out_form == 'json-pretty':
         # Translate from a named tuple to a dict, and then dump as a json string
-        return json.dumps({'timestamp': timestamp, 'tags': parsed_line.tags, 'message': parsed_line.message}, indent=2)
+        return json.dumps({'timestamp': timestamp, 'tags': parsed_line.tags, 'message': parsed_line.message}, indent=2).strip()
 
 
-def search(*args, **kwargs):
-    raise NotImplementedError
+def search(start, end, out_form, tags, text, all_args, form, file_dir=None, file_path=None):
+    base_results = read(start, end, 'parsed_line', form, file_dir, file_path)
+    for result in base_results:
+        if not all_args:
+            if tags and set(tags).intersection(set(result.tags)):
+                yield coerce_line(result, out_form)
+            elif text and set(text).intersection((set(result.message.split(' ')))):
+                yield coerce_line(result, out_form)
+            elif not text and not tags:
+                yield coerce_line(result, out_form)
+        else:
+            tags_in_tags = False
+            text_in_message = False
+            if tags and set(tags).issubset(set(result.tags)):
+                tags_in_tags = True
+            elif not tags:
+                tags_in_tags = True
+            if text and set(text).issubset(set(result.message.split(' '))):
+                text_in_message = True
+            elif not text:
+                text_in_message = True
+            if tags_in_tags and text_in_message:
+                yield coerce_line(result, out_form)

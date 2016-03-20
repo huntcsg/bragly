@@ -23,7 +23,7 @@ def write(message=None, tags=None, timestamp=None):
 
     message_struct = {'message': message, 'tags': tags, 'timestamp': timestamp}
     persist.write(message=message_struct)
-    return "Success"
+    return ["Success"]
 
 def read(start, end=None, period=None, form='json'):
     if end is None and period is None:
@@ -31,10 +31,11 @@ def read(start, end=None, period=None, form='json'):
     elif end is None:
         _, end = start.span(period)
 
-    result = persist.read(start, end, form)
-    return result
+    results = persist.read(start, end, form)
+    for result in results:
+        yield result
 
-def search(start, end=None, period=None, form='json', tags=None, text=None):
+def search(start, end=None, period=None, form='json', tags=None, text=None, all_args=False):
     if end is None and period is None:
         end = arrow.now()
     elif end is None:
@@ -44,5 +45,6 @@ def search(start, end=None, period=None, form='json', tags=None, text=None):
     if text is None:
         text = []
 
-    result = persis.search(start, end, form, tags, text)
-    return result
+    results = persist.search(start, end, form, tags, text, all_args=all_args)
+    for result in results:
+        yield result

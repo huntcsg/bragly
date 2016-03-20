@@ -14,8 +14,9 @@ def main(args=None):
     if func is None:
         print("Operation failed for unexpected reason")
         return 1
-    result = func(**args)
-    print(result)
+    results = func(**args)
+    for result in results:
+        print(result, flush=True)
     return 0
 if __name__ == '__main__':
     main()
