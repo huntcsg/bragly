@@ -13,11 +13,11 @@ def write(message, mechanism=None):
     result = mech.write(message=message, **config)
     return result
 
-def read(start, end, form='json'):
+def read(start, end, form='log', mechanism=None):
     config = get_config(mechanism)
     mechanism = config.pop('mechanism')
     mech = MECHANISMS[mechanism]
-    result = mech.read(start, end, form, **config)
+    result = ''.join(mech.read(start, end, form, **config))
     return result
 
 def search(start, end, form, tags, text):
