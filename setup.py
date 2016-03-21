@@ -11,7 +11,6 @@ with open('README.rst', 'r') as f:
     readme = f.read()
 
 
-
 setup(
     name='bragly',
     version='0.1.0',
