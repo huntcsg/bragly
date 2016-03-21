@@ -2,7 +2,7 @@
 """Represents the needed functions and logic for a command line interface."""
 
 import argparse
-from bragly.brag import write, read, search
+from bragly.brag import write, read, search, init, PERSIST_CHOICES
 import arrow
 
 def parse_args(args):
@@ -107,3 +107,20 @@ def parse_args(args):
 
     return parser, args
 
+def parse_utility_args(args):
+
+    parser = argparse.ArgumentParser(prog='brag-util')
+    subparsers = parser.add_subparsers(help='sub command help')
+    init_parser = subparsers.add_parser('init', help='Initialize brag')
+    init_parser.add_argument(
+        '-m',
+        '--mechanism',
+        type=str,
+        choices=PERSIST_CHOICES,
+        default='files',
+        help='Select the persistence mechanism. Default: %(default)s.'
+    )
+    init_parser.set_defaults(func=init)
+    args = vars(parser.parse_args(args))
+
+    return parser, args

@@ -5,6 +5,9 @@
 from __future__ import absolute_import, print_function
 import arrow
 import bragly.persist as persist
+import os
+
+PERSIST_CHOICES = list(persist.MECHANISMS.keys())
 
 __all__ = [
     'write',
@@ -94,3 +97,14 @@ def _get_end_date(start, end=None, period=None):
         _, end = start.span(period)
 
     return end
+
+def init(mechanism):
+    directory = os.path.expanduser('~/.brag')
+    print('Checking if {} exists...'.format(directory), end='', flush=True)
+    if not os.path.exists(directory):
+        print('\nmaking directory...', end='', flush=True)
+        os.makedirs(directory)
+        print('success', flush=True)
+    print('OK', flush=True)
+
+    return ['Initialization finished']

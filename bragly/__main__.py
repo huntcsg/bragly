@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """Entry point(s) for the command line interface"""
-from bragly.cli import parse_args
+from bragly.cli import parse_args, parse_utility_args
 import sys
 
 
@@ -23,6 +23,32 @@ def main(args=None):
     if args is None:
         args = sys.argv[1:]
     parser, args = parse_args(args)
+    if not args:
+        parser.print_help()
+        return 2
+
+    func = args.pop('func', None)
+    if func is None:
+        print("Operation failed for unexpected reason")
+        return 1
+    results = func(**args)
+    for result in results:
+        print(result, flush=True)
+    return 0
+
+def util(args=None):
+    """Entry point for brag utilities.
+
+    Args:
+        args (list): A list of arguments that would be in sys.argv. If None,
+            args will be populated from sys.argv.
+
+    Returns:
+
+    """
+    if args is None:
+        args = sys.argv[1:]
+    parser, args = parse_utility_args(args)
     if not args:
         parser.print_help()
         return 2

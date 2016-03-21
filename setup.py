@@ -17,6 +17,7 @@ setup(
     entry_points={
        'console_scripts': [
             'brag = bragly.__main__:main',
+            'brag-util = bragly.__main__:util'
         ], 
     },
     install_requires=[
