@@ -11,7 +11,7 @@
             the environmental variable BRAG_CONFIG_PATH.
 """
 from __future__ import print_function, absolute_import
-import configparser
+from six.moves import configparser
 import os
 
 BRAG_DIR = os.environ.get('BRAG_DIR', os.path.expanduser('~/.brag'))
