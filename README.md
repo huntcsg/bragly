@@ -5,6 +5,17 @@
 
 A command line tool to help remind you of your accomplishments
 
+####Installation & Testing
+`pip install bragly`
+
+OR 
+
+`$ git clone https://github.com/huntcsg/bragly.git`
+
+`$ python setup.py install`
+
+`$ brag-util init`
+
 ####Base executable
 
 ```
