@@ -111,6 +111,7 @@ Search
       -f FORM, --form FORM  The format to display the results in. One of json,
                             json-pretty, log. Default: json
 
+
 .. |Build Status| image:: https://travis-ci.org/huntcsg/bragly.svg?branch=master
    :target: https://travis-ci.org/huntcsg/bragly
 .. |Develop Build Status| image:: https://api.travis-ci.org/huntcsg/bragly.svg?branch=develop

@@ -10,6 +10,8 @@ def brag_dir():
 with open('README.rst', 'r') as f:
     readme = f.read()
 
+
+
 setup(
     name='bragly',
     version='0.1.0',
@@ -24,7 +26,7 @@ setup(
        'console_scripts': [
             'brag = bragly.__main__:main',
             'brag-util = bragly.__main__:util'
-        ], 
+        ],
     },
     install_requires=[
       'arrow',
@@ -37,4 +39,15 @@ setup(
         'coverage',
     ],
     test_suite='nose.collector',
+    classifiers=[
+        'Development Status :: 3 - Alpha',
+        'License :: OSI Approved :: MIT License',
+        'Operating System :: Microsoft :: Windows :: Windows 7',
+        'Operating System :: POSIX :: Linux',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: Implementation :: CPython',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+    ],
 )
