@@ -6,6 +6,7 @@ from __future__ import absolute_import, print_function
 import arrow
 import bragly.persist as persist
 import os
+import pkg_resources
 
 PERSIST_CHOICES = list(persist.MECHANISMS.keys())
 
@@ -108,5 +109,24 @@ def init(mechanism):
         os.makedirs(directory)
         print('success', flush=True)
     print('OK', flush=True)
+
+    print('Getting example configuration for mechanism: {}...'.format(
+        mechanism), end='', flush=True)
+
+    config_example = pkg_resources.resource_filename(
+        'bragly',
+        'config_examples/config-{}.ini'.format(mechanism)
+    )
+
+    with open(config_example, 'r') as f:
+        config_data = f.read()
+    print('OK')
+
+    config_file_path = os.path.join(directory, 'config.ini')
+
+    print('Writing to {}...'.format(config_file_path), end='', flush=True)
+    with open(config_file_path, 'w') as f:
+        f.write(config_data)
+    print('OK')
 
     return ['Initialization finished']
