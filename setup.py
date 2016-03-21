@@ -4,11 +4,17 @@ import os
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
+def brag_dir():
+    return os.environ.get('BRAG_DIR', os.path.expanduser('~/.brag'))
+
+with open('README.md', 'r') as f:
+    readme = f.read()
+
 setup(
     name='bragly',
     version='0.1.0',
     description='A small tool to remind yourself of your day-to-day accomplishments',
-    long_description = read('README.md'),
+    long_description = readme,
     url='http://github.com/huntcsg/bragly',
     author='Hunter Senft-Grupp',
     author_email='huntcgs@gmail.com',
@@ -23,7 +29,9 @@ setup(
     install_requires=[
       'arrow',
       'six',
-    ], 
+    ],
+    package_data={'bragly': ['config_example/*.ini']},
+    include_package_data=True,
     tests_require=[
         'nose',
         'coverage',

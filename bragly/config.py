@@ -14,7 +14,7 @@ from __future__ import print_function, absolute_import
 from six.moves import configparser
 import os
 
-BRAG_DIR = os.environ.get('BRAGs_DIR', os.path.expanduser('~/.brag'))
+BRAG_DIR = os.environ.get('BRAG_DIR', os.path.expanduser('~/.brag'))
 CONFIG_FILE_PATH = os.environ.get('BRAG_CONFIG_PATH', os.path.join(BRAG_DIR, 'config.ini'))
 
 
