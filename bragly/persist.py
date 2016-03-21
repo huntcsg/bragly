@@ -14,7 +14,7 @@ from bragly.config import get_config
 MECHANISMS = {
     'files': files,
     'mongodb': mongodb,
-    'rel-db': reldb
+    'reldb': reldb
 }
 
 
