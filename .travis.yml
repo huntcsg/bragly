@@ -1,19 +1,25 @@
 language: python
 python:
-  - "2.7"
-  - "3.4"
-  - "3.5"
-# command to install dependencies
+- '2.7'
+- '3.4'
+- '3.5'
 install:
-  - pip install -r requirements.txt
-script: 
-  - python setup.py nosetests
-
+- pip install -r requirements.txt
+script:
+- python setup.py nosetests
 after_success:
-  - pip install python-coveralls
-  - coveralls
-
+- pip install python-coveralls
+- coveralls
 branches:
   only:
-    - master
-    - develop
+  - master
+  - develop
+deploy:
+  provider: pypi
+  user: huntcsg
+  password:
+    secure: VbPcmmF+amKW00rnSjJclYSORIklorja2BbV9GiUmZBzowYcuyk2xHnHVMtwQbJScVDyTXBc6wsl1mCTp11WhqCuE0PS12uCo5gB9wMr21CBOtsCviD31QdP5CTgYV/tcOrM/6rhPTsjSMsZliHE8j50bWoj8qgIHsDnlN5cG3uqiM5DjMgEo3cN4JqK9GeZGoZGW/ppGLBu/5D5vYH4gqxWQNDTsyVcr7VwH6MpefegCIeUWnhDYCEEo0bkmBQEb43gLawyaIuZROdkRMDR/khEk8NRjiAnjuuF5dTmrDKZtEA+0SwIVTSzonQBc5aslxW6mjMlgzj2VS0WqzyqRlUtRKUdFvCyHqIYwDPE5JLOrlVqbZM3eq3GSeKuvM2YV5h/9/buNIkbADDUrI+7bENZQstR/s498+Wx7iEtJsFZuJAc4MAWrVtE4HK3sJhBfXl2j/08TM6Q8cFnZeV5dun88PaEnWZUCIC4vrVF+e6Xyf1wG7TxvIAV1gBZEHT398q5MT16jUSoo59HD6MvAno4yzvyA7jFJzEyXV/IeGZaRl3kFwh3yz6QXJUt8ZWH++bbkDYYPxCYeXOLYKnSrHJB8myHUlj3386gyn0X2A1xId32j0xdlg6w+ShHjq5f2wuxsE2CSGVPEIdx278+lBVluNJgjNu/Fb/NI8OFJIY=
+  on:
+    tags: true
+    distributions: sdist bdist_wheel
+    repo: huntcsg/bragly
