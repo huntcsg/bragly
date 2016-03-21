@@ -33,7 +33,7 @@ def parse_args(args):
 
     # Read command sub parser
     read_parser = subparsers.add_parser('r', help='Read a group of brag entries')
-    read_parser.add_argument('-s', '--start', type=arrow.get, help="The start time for getting entries", required=True)
+    read_parser.add_argument('-s', '--start', type=arrow.get, help="The start time for getting entries")
     # End date spec
     read_parser_enddate_group =  read_parser.add_mutually_exclusive_group()
     read_parser_enddate_group.add_argument(
@@ -61,7 +61,6 @@ def parse_args(args):
         '--start',
         type=arrow.get,
         help="The start time for getting entries",
-        required=True
     )
     # End date spec
     search_parser_enddate_group = search_parser.add_mutually_exclusive_group()

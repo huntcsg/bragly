@@ -56,12 +56,11 @@ def write(message, file_path=None, file_dir=None, form='json'):
             indent=2
         ))
     elif form == 'log':
-        tags = '|'.join(message['tags'])
-        timestamp = message['timestamp'].isoformat()
+        tags = '|'.join(tags)
         message_str = MESSAGE_STR_TEMPLATE.format(
             timestamp=timestamp,
             tags=tags,
-            message=message['message']
+            message=message,
         )
     else:
         raise RuntimeError('Form {form} not supported or missing.'.format(form))
@@ -121,7 +120,11 @@ def read(start, end, out_form, form, file_dir=None, file_path=None):
         for line in f:
             line = line.decode('utf-8').strip()
             parsed_line = _parse_line(line, form=form)
-            if start <= parsed_line.timestamp <= end:
+
+            if ((start is None and parsed_line.timestamp <= end) or
+                    (start is not None and
+                        start <= parsed_line.timestamp <= end
+                     )):
                 if out_form != form:
                     yield _coerce_line(parsed_line, out_form)
                 else:

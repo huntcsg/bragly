@@ -44,7 +44,7 @@ def write(message=None, tags=None, timestamp=None):
     result = persist.write(message=message_struct)
     return [result]
 
-def read(start, end=None, period=None, form='json'):
+def read(start=None, end=None, period=None, form='json'):
     """Reads previously saved messages.
 
     Args:
@@ -62,7 +62,7 @@ def read(start, end=None, period=None, form='json'):
     for result in results:
         yield result
 
-def search(start, end=None, period=None, form='json', tags=None, text=None, all_args=False):
+def search(start=None, end=None, period=None, form='json', tags=None, text=None, all_args=False):
     """Given search criteria, finds the matching messages. Yields the results
         back to the caller.
 
@@ -90,11 +90,13 @@ def search(start, end=None, period=None, form='json', tags=None, text=None, all_
     for result in results:
         yield result
 
-def _get_end_date(start, end=None, period=None):
+def _get_end_date(start=None, end=None, period=None):
     if end is None and period is None:
         end = arrow.now()
-    elif end is None:
+    elif end is None and start is not None:
         _, end = start.span(period)
+    elif start is None:
+        end = arrow.now()
 
     return end
 
