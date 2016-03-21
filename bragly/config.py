@@ -43,7 +43,7 @@ def get_config(mechanism=None):
         with open(CONFIG_FILE_PATH, 'r') as f:
             conf_parser.read_file(f)
     except IOError:
-        print("No configuration found, using default configuration: ", end='')
+        print("No configuration found, using default configuration: ")
 
     if mechanism is None:
         if 'mechanism' in conf_parser:
