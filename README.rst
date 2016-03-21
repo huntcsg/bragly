@@ -7,6 +7,10 @@ bragly
 | master       | |Build Status|  | |Coverage   |
 |              |                 | Status|     |
 +--------------+-----------------+-------------+
+| develop      | |Develop Build  | |Develop    |
+|              | Status|         | Coverage    |
+|              |                 | Status|     |
++--------------+-----------------+-------------+
 
 A command line tool to help remind you of your accomplishments
 
@@ -109,5 +113,10 @@ Search
 
 .. |Build Status| image:: https://travis-ci.org/huntcsg/bragly.svg?branch=master
    :target: https://travis-ci.org/huntcsg/bragly
+.. |Develop Build Status| image:: https://api.travis-ci.org/huntcsg/bragly.svg?branch=develop
+   :target: https://travis-ci.org/huntcsg/bragly/branches
 .. |Coverage Status| image:: https://coveralls.io/repos/github/huntcsg/bragly/badge.svg?branch=master
    :target: https://coveralls.io/github/huntcsg/bragly?branch=master
+.. |Develop Coverage Status| image:: https://coveralls.io/repos/github/huntcsg/bragly/badge.svg?branch=develop
+   :target: https://coveralls.io/github/huntcsg/bragly?branch=develop
+
