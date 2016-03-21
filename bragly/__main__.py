@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """Entry point(s) for the command line interface"""
+from __future__ import absolute_import, print_function
 from bragly.cli import parse_args, parse_utility_args
 import sys
 

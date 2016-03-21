@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Represents the needed functions and logic for a command line interface."""
-
+from __future__ import absolute_import, print_function
 import argparse
 from bragly.brag import write, read, search, init, PERSIST_CHOICES
 from bragly.config import BRAG_DIR, CONFIG_FILE_PATH
