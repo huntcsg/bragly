@@ -12,3 +12,8 @@ script:
 after_success:
   - pip install python-coveralls
   - coveralls
+
+branches:
+  only:
+    - master
+    - develop
