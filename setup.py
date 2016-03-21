@@ -1,5 +1,6 @@
 from setuptools import setup, find_packages
 import os
+import pypandoc
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
@@ -7,8 +8,11 @@ def read(fname):
 def brag_dir():
     return os.environ.get('BRAG_DIR', os.path.expanduser('~/.brag'))
 
-with open('README.md', 'r') as f:
+with open('README.rst', 'r') as f:
     readme = f.read()
+    import pypandoc
+
+= pypandoc.convert('somefile.md', 'rst')
 
 setup(
     name='bragly',
