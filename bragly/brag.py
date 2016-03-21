@@ -5,6 +5,7 @@
 from __future__ import absolute_import, print_function
 import arrow
 import bragly.persist as persist
+from bragly.config import BRAG_DIR, CONFIG_FILE_PATH
 import os
 import pkg_resources
 
@@ -101,8 +102,8 @@ def _get_end_date(start=None, end=None, period=None):
 
     return end
 
-def init(mechanism):
-    directory = os.path.expanduser('~/.brag')
+def init(mechanism, clobber=True):
+    directory = BRAG_DIR
     print('Checking if {} exists...'.format(directory), end='', flush=True)
     if not os.path.exists(directory):
         print('\nmaking directory...', end='', flush=True)
@@ -122,11 +123,21 @@ def init(mechanism):
         config_data = f.read()
     print('OK')
 
-    config_file_path = os.path.join(directory, 'config.ini')
+    config_file_path = CONFIG_FILE_PATH
+    file_exists = os.path.exists(config_file_path)
 
-    print('Writing to {}...'.format(config_file_path), end='', flush=True)
-    with open(config_file_path, 'w') as f:
-        f.write(config_data)
-    print('OK')
+    if (file_exists and clobber) or not file_exists:
+        if file_exists:
+            print('Clobbering file {}.'.format(config_file_path), flush=True)
+        print('Writing to {}...'.format(config_file_path), end='', flush=True)
+        with open(config_file_path, 'w') as f:
+            f.write(config_data)
+        print('OK')
+    else:
+        print(
+            'Not clobbering file at {}. See example config file at {}.'.format(
+                config_file_path, config_example
+            )
+        )
 
     return ['Initialization finished']
