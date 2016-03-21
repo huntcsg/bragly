@@ -14,8 +14,13 @@ bragly
 
 A command line tool to help remind you of your accomplishments
 
-Installation & Testing
-^^^^^^^^^^^^^^^^^^^^^^
+Limitations
+^^^^^^^^^^^
+Currently, only the "files" persistence mechanism is implemented. Any other
+method will raise a NotImplemented exception.
+
+Installation
+^^^^^^^^^^^^
 
 ``pip install bragly``
 
@@ -24,6 +29,9 @@ OR
 ``$ git clone https://github.com/huntcsg/bragly.git``
 
 ``$ python setup.py install``
+
+After installation be sure to run the following command so that your file/s will
+be in the right place.
 
 ``$ brag-util init``
 
@@ -110,6 +118,42 @@ Search
                             Keywords you want to search for
       -f FORM, --form FORM  The format to display the results in. One of json,
                             json-pretty, log. Default: json
+
+
+Utility Script
+^^^^^^^^^^^^^^
+
+::
+
+   $ brag-util --help
+   usage: brag-util [-h] {init} ...
+
+   positional arguments:
+     {init}      sub command help
+       init      Initialize brag. If you want a different location for brag than
+                 /home/hunter/.brag than be sure to set BRAG_DIR environmental
+                 variable. If you want a different location for the configuration
+                 file then be sure to set BRAG_CONFIG_PATH to something other
+                 than /home/hunter/.brag/config.ini
+
+   optional arguments:
+     -h, --help  show this help message and exit
+
+
+brag-util init
+^^^^^^^^^^^^^^
+
+::
+
+   $ brag-util init --help
+   usage: brag-util init [-h] [-m {reldb,files,mongodb}] [-c]
+
+   optional arguments:
+     -h, --help            show this help message and exit
+     -m {reldb,files,mongodb}, --mechanism {reldb,files,mongodb}
+                           Select the persistence mechanism. Default: files.
+     -c, --clobber         If set, overwrites existing configuration files.
+
 
 
 .. |Build Status| image:: https://travis-ci.org/huntcsg/bragly.svg?branch=master
