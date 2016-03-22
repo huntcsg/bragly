@@ -13,7 +13,7 @@ with open('README.rst', 'r') as f:
 
 setup(
     name='bragly',
-    version='0.1.3',
+    version='0.1.4',
     description='A small tool to remind yourself of your day-to-day accomplishments',
     long_description = readme,
     url='http://github.com/huntcsg/bragly',
