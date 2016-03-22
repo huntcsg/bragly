@@ -104,15 +104,15 @@ def _get_end_date(start=None, end=None, period=None):
 
 def init(mechanism, clobber=True):
     directory = BRAG_DIR
-    print('Checking if {} exists...'.format(directory), end='', flush=True)
+    print('Checking if {} exists...'.format(directory), end='')
     if not os.path.exists(directory):
-        print('\nmaking directory...', end='', flush=True)
+        print('\nmaking directory...', end='')
         os.makedirs(directory)
-        print('success', flush=True)
-    print('OK', flush=True)
+        print('success')
+    print('OK')
 
     print('Getting example configuration for mechanism: {}...'.format(
-        mechanism), end='', flush=True)
+        mechanism), end='')
 
     config_example = pkg_resources.resource_filename(
         'bragly',
@@ -128,8 +128,8 @@ def init(mechanism, clobber=True):
 
     if (file_exists and clobber) or not file_exists:
         if file_exists:
-            print('Clobbering file {}.'.format(config_file_path), flush=True)
-        print('Writing to {}...'.format(config_file_path), end='', flush=True)
+            print('Clobbering file {}.'.format(config_file_path))
+        print('Writing to {}...'.format(config_file_path), end='')
         with open(config_file_path, 'w') as f:
             f.write(config_data)
         print('OK')

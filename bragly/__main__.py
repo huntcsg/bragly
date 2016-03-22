@@ -34,7 +34,7 @@ def main(args=None):
         return 1
     results = func(**args)
     for result in results:
-        print(result, flush=True)
+        print(result)
     return 0
 
 def util(args=None):
@@ -60,7 +60,7 @@ def util(args=None):
         return 1
     results = func(**args)
     for result in results:
-        print(result, flush=True)
+        print(result)
     return 0
 
 
