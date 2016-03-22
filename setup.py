@@ -36,6 +36,7 @@ setup(
     tests_require=[
         'nose',
         'coverage',
+        'mock',
     ],
     test_suite='nose.collector',
     classifiers=[

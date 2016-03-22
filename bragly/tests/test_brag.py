@@ -226,14 +226,19 @@ def test_get_end_date():
         yield check_get_end_date, test_case['kwargs'], test_case['result']
 
 def test_init():
-    temp_brag_dir = tempfile.TemporaryDirectory()
+    try:
+        temp_brag_dir = tempfile.TemporaryDirectory()
+        temp_brag_dir_path = temp_brag_dir.name
+    except AttributeError:
+        temp_brag_dir_path = tempfile.mkdtemp()
+
     temp_config_file = tempfile.NamedTemporaryFile()
 
     test_cases = []
     start_lines = 0
     end_lines = 0
 
-    with mock.patch('bragly.brag.BRAG_DIR', temp_brag_dir.name) as brag_dir:
+    with mock.patch('bragly.brag.BRAG_DIR', temp_brag_dir_path) as brag_dir:
         with mock.patch('bragly.brag.CONFIG_FILE_PATH', temp_config_file.name) as config_file:
             with mock.patch('builtins.print') as print_output:
                 temp_config_file.close()
