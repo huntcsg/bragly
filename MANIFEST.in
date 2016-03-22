@@ -1,1 +1,1 @@
-include bragly/config_examples
+recursive-include bragly/config_examples *.ini
