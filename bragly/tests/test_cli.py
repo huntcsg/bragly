@@ -1,5 +1,5 @@
 from __future__ import absolute_import, print_function
-from bragly.cli import parse_args
+from bragly.cli import parse_args, parse_utility_args
 import arrow
 
 # Test argument generation
@@ -110,7 +110,7 @@ def check_search_parsing(args, result):
     assert (args['func'].__name__ == result['func'])
 
 
-def test_serach_parsing():
+def test_search_parsing():
     test_cases = [
         {
             'args': 's --start=2015-01-01 --end=2016-01-01',
@@ -176,3 +176,46 @@ def test_serach_parsing():
     ]
     for test_case in test_cases:
         yield check_search_parsing, test_case['args'], test_case['result']
+
+def check_util_init_parsing(args, result):
+    args = args.split()
+    parser, args = parse_utility_args(args)
+    comp_keys = ['clobber', 'mechanism']
+    for key in comp_keys:
+        if key in result:
+            assert(args[key] == result[key])
+        else:
+            assert(args[key] is None)
+
+    assert(args['func'].__name__ == result['func'])
+
+def test_util_init_parsing():
+    test_cases = [
+        {
+            'args': 'init',
+            'result': {
+                'func' : 'init',
+                'mechanism': 'files',
+                'clobber': False,
+            },
+        },
+        {
+            'args': 'init --clobber',
+            'result': {
+                'func': 'init',
+                'mechanism': 'files',
+                'clobber': True,
+            },
+        },
+        {
+            'args': 'init --clobber --mechanism reldb',
+            'result': {
+                'func': 'init',
+                'mechanism': 'reldb',
+                'clobber': True,
+            },
+        },
+    ]
+
+    for test_case in test_cases:
+        yield check_util_init_parsing, test_case['args'], test_case['result']

@@ -32,7 +32,7 @@ def write(message=None, tags=None, timestamp=None):
             the write operation.
     """
     if message is None:
-        message = ''
+        message = ' '
     elif isinstance(message, (list,)):
         message = ' '.join(message)
 
@@ -59,8 +59,9 @@ def read(start=None, end=None, period=None, form='json'):
         str: A single line of the result set
     """
     end = _get_end_date(start, end, period)
-
+    print('before read')
     results = persist.read(start, end, form)
+    print('after read')
     for result in results:
         yield result
 
@@ -88,7 +89,7 @@ def search(start=None, end=None, period=None, form='json', tags=None, text=None,
     if text is None:
         text = []
 
-    results = persist.search(start, end, form, tags, text, all_args=all_args)
+    results = persist.search(start, end, form, tags, text, all_args)
     for result in results:
         yield result
 
@@ -97,7 +98,7 @@ def _get_end_date(start=None, end=None, period=None):
         end = arrow.now()
     elif end is None and start is not None:
         _, end = start.span(period)
-    elif start is None:
+    elif start is None and end is None:
         end = arrow.now()
 
     return end
