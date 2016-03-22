@@ -37,6 +37,7 @@ setup(
         'nose',
         'coverage',
         'mock',
+        'future',
     ],
     test_suite='nose.collector',
     classifiers=[
