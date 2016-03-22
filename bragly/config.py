@@ -41,12 +41,17 @@ def get_config(mechanism=None):
     conf_parser = configparser.ConfigParser()
     try:
         with open(CONFIG_FILE_PATH, 'r') as f:
-            conf_parser.read_file(f)
+            try:
+                # Python 3
+                conf_parser.read_file(f)
+            except AttributeError:
+                # Python 2
+                conf_parser.readfp(f)
     except IOError:
         print("No configuration found, using default configuration: ")
 
     if mechanism is None:
-        if 'mechanism' in conf_parser:
+        if conf_parser.has_section('mechanism'):
             mechanisms = [
                 mech for mech, onoff
                 in conf_parser['mechanism'].items()
@@ -62,8 +67,8 @@ def get_config(mechanism=None):
 
     config = {}
     for mechanism in mechanisms:
-        if mechanism in conf_parser:
-            overide_config = dict(conf_parser[mechanism])
+        if conf_parser.has_section(mechanism):
+            overide_config = dict(conf_parser.items(mechanism))
         else:
             overide_config = {}
 
