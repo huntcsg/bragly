@@ -146,11 +146,11 @@ brag-util init
 ::
 
    $ brag-util init --help
-   usage: brag-util init [-h] [-m {reldb,files,mongodb}] [-c]
+   usage: brag-util init [-h] [-m {files}] [-c]
 
    optional arguments:
      -h, --help            show this help message and exit
-     -m {reldb,files,mongodb}, --mechanism {reldb,files,mongodb}
+     -m {files}, --mechanism {files}
                            Select the persistence mechanism. Default: files.
      -c, --clobber         If set, overwrites existing configuration files.
 

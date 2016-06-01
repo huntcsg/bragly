@@ -63,7 +63,7 @@ def write(message, file_path=None, file_dir=None, form='json'):
             message=message,
         )
     else:
-        raise RuntimeError('Form {form} not supported or missing.'.format(form))
+        raise RuntimeError('Form {form} not supported or missing.'.format(form=form))
 
     file_path = _get_file_path(form, file_path, file_dir)
 
@@ -205,6 +205,9 @@ def _coerce_line(parsed_line, out_form):
             'tags': parsed_line.tags,
             'message': parsed_line.message
         }, indent=2).strip()
+    else:
+        raise TypeError('form must be one of parsed_line, log, json, or json-pretty. '
+                        'Instead got {form}'.format(form=out_form))
 
 
 def search(start, end, out_form, tags, text,
@@ -231,6 +234,8 @@ def search(start, end, out_form, tags, text,
     """
     base_results = read(start, end, 'parsed_line', form, file_dir, file_path)
     for result in base_results:
+
+        # Handle any of the filters matching
         if not all_args:
             if tags and set(tags).intersection(set(result.tags)):
                 yield _coerce_line(result, out_form)
@@ -239,6 +244,8 @@ def search(start, end, out_form, tags, text,
                 yield _coerce_line(result, out_form)
             elif not text and not tags:
                 yield _coerce_line(result, out_form)
+
+        # Handle all filters matching
         else:
             tags_in_tags = False
             text_in_message = False

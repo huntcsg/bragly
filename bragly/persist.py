@@ -8,13 +8,11 @@
 """
 
 from __future__ import absolute_import, print_function
-from bragly.persistance import files, reldb, mongodb
+from bragly.persistance import files
 from bragly.config import get_config
 
 MECHANISMS = {
     'files': files,
-    'mongodb': mongodb,
-    'reldb': reldb
 }
 
 
