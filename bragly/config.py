@@ -23,8 +23,7 @@ def get_config(mechanism=None):
         default.
 
     Args:
-        mechanism (str): The mechanism to use for persistance. One of 'files',
-            'reldb' (relational database), or 'mongdb'.
+        mechanism (str): The mechanism to use for persistance. 'files' is the only current valid option.
 
     Returns:
         dict: A dictionary of configuration values relevant to the given

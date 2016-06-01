@@ -207,14 +207,6 @@ def test_util_init_parsing():
                 'clobber': True,
             },
         },
-        {
-            'args': 'init --clobber --mechanism reldb',
-            'result': {
-                'func': 'init',
-                'mechanism': 'reldb',
-                'clobber': True,
-            },
-        },
     ]
 
     for test_case in test_cases:
